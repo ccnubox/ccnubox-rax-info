@@ -1,0 +1,20 @@
+{
+  "name": "ccnubox-rax-info",
+  "author": "MFE",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "rax-scripts start",
+    "build": "rax-scripts build",
+    "lint": "eslint --ext .js --ext .jsx ./src"
+  },
+  "dependencies": {
+    "rax": "^0.5.2",
+    "rax-view": "^0.5.2",
+    "rax-text": "^0.5.2"
+  },
+  "devDependencies": {
+    "rax-scripts": "^0.5.2",
+    "babel-eslint": "^7.1.0",
+    "eslint": "^3.10.0"
+  }
+}
