@@ -3,6 +3,7 @@ import View from 'rax-view';
 import Text from 'rax-text';
 import ListView from 'rax-listview';
 import InfoService from './services';
+const test = require("@weex-module/test");
 
 // 将 item 定义成组件
 
@@ -21,6 +22,7 @@ class App extends Component {
     InfoService.getInfoList()
       .then((data) => {
         this.setState({data})
+        test.changeLoadingStatus(true)
       })
   }
 
@@ -52,8 +54,8 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#efeff4',
-    paddingTop: 40,
-    paddingBottom: 40,
+    paddingTop: 144,
+    paddingBottom: 100,
   },
   textHead: {
     color: '#6767fa',
