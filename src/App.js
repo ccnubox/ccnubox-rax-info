@@ -1,11 +1,10 @@
 import { createElement, Component, render } from "rax";
 import View from "rax-view";
 import Text from "rax-text";
+import Touchable from "rax-touchable";
 import ListView from "rax-listview";
 import InfoService from "./services";
-const test = require("@weex-module/test");
-
-// 将 item 定义成组件
+const native = require("@weex-module/test");
 
 class App extends Component {
   constructor(props) {
@@ -19,18 +18,38 @@ class App extends Component {
   componentWillMount() {
     InfoService.getInfoList().then(data => {
       this.setState({ data });
-      test.changeLoadingStatus(true);
+      native.changeLoadingStatus(true);
     });
   }
 
   listItem = (item, index) => {
     return (
-      <View style={styles.item}>
+      <View
+        style={[
+          styles.item,
+          index === 0 ? styles.list_first_item : {},
+          index === this.state.data.length - 1 ? styles.item_last_item : {}
+        ]}
+      >
         <Text style={styles.textHead}>{item.apartment}</Text>
         {item.phone.map(num => {
-          return <Text style={styles.text}>电话：{num}</Text>;
+          return (
+            <Touchable
+              onPress={() => {
+                native.makePhoneCall(num);
+              }}
+            >
+              <Text style={styles.text}>
+                电话：
+                {num}
+              </Text>
+            </Touchable>
+          );
         })}
-        <Text style={[styles.text, styles.paddingTop]}>地址：{item.place}</Text>
+        <Text style={[styles.text, styles.paddingTop]}>
+          地址：
+          {item.place}
+        </Text>
       </View>
     );
   };
@@ -46,9 +65,7 @@ class App extends Component {
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#efeff4",
-    paddingTop: 24,
-    paddingBottom: 100
+    backgroundColor: "#efeff4"
   },
   textHead: {
     color: "#6767fa",
@@ -69,6 +86,12 @@ const styles = {
   },
   paddingTop: {
     paddingTop: 27
+  },
+  list_first_item: {
+    marginTop: 24
+  },
+  item_last_item: {
+    marginBottom: 100
   }
 };
 

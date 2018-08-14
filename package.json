@@ -1,7 +1,7 @@
 {
   "name": "ccnubox-rax-info",
   "author": "MFE",
-  "version": "0.0.0",
+  "version": "2.0.0-beta1",
   "scripts": {
     "start": "rax-scripts start",
     "build": "rax-scripts build",
@@ -11,6 +11,7 @@
     "rax": "^0.5.2",
     "rax-listview": "^0.5.2",
     "rax-text": "^0.5.2",
+    "rax-touchable": "^0.6.4",
     "rax-view": "^0.5.2"
   },
   "devDependencies": {
