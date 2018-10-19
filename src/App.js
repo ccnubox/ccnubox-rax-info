@@ -16,10 +16,17 @@ class App extends Component {
   }
 
   componentWillMount() {
-    InfoService.getInfoList().then(data => {
-      this.setState({ data });
-      native.changeLoadingStatus(true);
-    });
+    InfoService.getInfoList()
+      .then(data => {
+        native.reportInsightApiEvent("getInfo", "success", "null");
+        this.setState({ data });
+        native.changeLoadingStatus(true);
+      })
+      .catch(e => {
+        native.reportInsightApiEvent("getInfo", "error", JSON.stringify(e));
+        native.changeLoadingStatus(true);
+        alert("加载失败！");
+      });
   }
 
   listItem = (item, index) => {
@@ -39,10 +46,10 @@ class App extends Component {
                 native.makePhoneCall(num);
               }}
             >
-              <Text style={styles.text}>
-                电话：
-                {num}
-              </Text>
+              <View style={[styles.phoneContainer]}>
+                <Text style={[styles.text]}>电话：</Text>
+                <Text style={[styles.text, styles.phone]}>{num}</Text>
+              </View>
             </Touchable>
           );
         })}
@@ -72,6 +79,13 @@ const styles = {
     fontSize: 32,
     paddingTop: 32,
     paddingBottom: 17
+  },
+  phoneContainer: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  phone: {
+    color: "#feb75a"
   },
   text: {
     fontSize: 24,
