@@ -3,6 +3,9 @@ const path = require("path");
 const webpack = require("webpack");
 const package = require("./package.json");
 module.exports = function update(webpackConfig) {
+  webpackConfig.entry["com.muxistudio.info"] = [
+    path.resolve(__dirname, "./src/index.js")
+  ];
   console.log("current env", process.env.NODE_ENV);
   if (process.env.NODE_ENV === "production") {
     webpackConfig.plugins[7].options.include = /\.js$/;

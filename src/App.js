@@ -25,7 +25,7 @@ class App extends Component {
       .catch(e => {
         native.reportInsightApiEvent("getInfo", "error", JSON.stringify(e));
         native.changeLoadingStatus(true);
-        alert("加载失败！");
+        alert(`服务端错误：${JSON.stringify(e)}`);
       });
   }
 
@@ -38,7 +38,6 @@ class App extends Component {
           index === this.state.data.length - 1 ? styles.item_last_item : {}
         ]}
       >
-        <Text style={styles.textHead}>{item.apartment}</Text>
         {item.phone.map(num => {
           return (
             <Touchable
@@ -46,17 +45,18 @@ class App extends Component {
                 native.makePhoneCall(num);
               }}
             >
+              <Text style={styles.textHead}>{item.apartment}</Text>
               <View style={[styles.phoneContainer]}>
                 <Text style={[styles.text]}>电话：</Text>
                 <Text style={[styles.text, styles.phone]}>{num}</Text>
               </View>
+              <Text style={[styles.text, styles.paddingTop]}>
+                地址：
+                {item.place}
+              </Text>
             </Touchable>
           );
         })}
-        <Text style={[styles.text, styles.paddingTop]}>
-          地址：
-          {item.place}
-        </Text>
       </View>
     );
   };
